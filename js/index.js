@@ -19,7 +19,12 @@ import {
   
   let vases = [];
   
-  
+  export const refetchallVases = async () => {
+    const allVases = getallVases();
+    vases = allVases;
+    renderCardsList(vases, onEditItem, onDeleteItem);
+  };
+
   const onEditItem = async (e) => {
     const itemId = e.target.id.replace(EDIT_BUTTON_PREFIX, "");
   
@@ -37,13 +42,6 @@ import {
   }
   
   
-  const refetchallVases = () => {
-    const allVases = getallVases();
-    vases = allVases.sort((card1,card2) =>card2.name.localeCompare(card1.name));
-    renderCardsList(vases, onEditItem, onDeleteItem);
-  };
-  
-  
   const validateInput = () => {
     if (Array.from(formFields).filter(x => x.value.trim() === "").length !== 0) {
       alert("Please fill out required fields"); 
@@ -57,11 +55,10 @@ import {
     if (!validateInput()) {
       return;
     }
-      const { name, description, price, volume } = getInputValues();
+      const { name, price, volume } = getInputValues();
   
       postVase({
           name,
-          description,
           price,
           volume
       })
@@ -100,4 +97,5 @@ import {
       console.log(sum);
   })
   
-  refetchallVases();  
+//refetchallVases();
+getallVases().then(console.log)

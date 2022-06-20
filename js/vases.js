@@ -1,5 +1,5 @@
-const BASE_URL = "https://localhost:63342";
-const RESOURCE_URL = `${BASE_URL}/vase`;
+const BASE_URL = "http://localhost:5000";
+const RESOURCE_URL = `${BASE_URL}/vases`;
 
 const baseRequest = async ({ urlPath = "", method = "GET", body = null }) => {
     try {
@@ -8,7 +8,8 @@ const baseRequest = async ({ urlPath = "", method = "GET", body = null }) => {
             headers: {
                 "Content-Type": "application/json",
             },
-            body
+            body,
+            mode: 'no-cors'
         };
 
         if (body) {
@@ -23,7 +24,7 @@ const baseRequest = async ({ urlPath = "", method = "GET", body = null }) => {
 
 export const getallVases = async () => {
     const rawResponse = await baseRequest({ method: "GET" });
-
+    
     return await rawResponse.json();
 };
 
